@@ -1,0 +1,8 @@
+c:\users\mounarshi\documents\visual studio 2015\Projects\AGLTestConsole\AGLTestConsole\bin\Debug\AGLTestConsole.exe.config
+c:\users\mounarshi\documents\visual studio 2015\Projects\AGLTestConsole\AGLTestConsole\bin\Debug\AGLTestConsole.exe
+c:\users\mounarshi\documents\visual studio 2015\Projects\AGLTestConsole\AGLTestConsole\bin\Debug\AGLTestConsole.pdb
+c:\users\mounarshi\documents\visual studio 2015\Projects\AGLTestConsole\AGLTestConsole\obj\Debug\AGLTestConsole.exe
+c:\users\mounarshi\documents\visual studio 2015\Projects\AGLTestConsole\AGLTestConsole\obj\Debug\AGLTestConsole.pdb
+c:\users\mounarshi\documents\visual studio 2015\Projects\AGLTestConsole\AGLTestConsole\bin\Debug\Newtonsoft.Json.dll
+c:\users\mounarshi\documents\visual studio 2015\Projects\AGLTestConsole\AGLTestConsole\bin\Debug\Newtonsoft.Json.xml
+c:\users\mounarshi\documents\visual studio 2015\Projects\AGLTestConsole\AGLTestConsole\obj\Debug\AGLTestConsole.csprojResolveAssemblyReference.cache
