@@ -8,14 +8,20 @@ using Newtonsoft.Json;
 
 namespace AGLTestConsole
 {
-     class Program
+     public class Program
     {
         private const string urlTestWebService = "http://agl-developer-test.azurewebsites.net/people.json";
         private const string animalToSelect = "cat";
+        private const string strExitMsg = "Please press ENTER key to exit";
         static void Main(string[] args)
         {
+            DoMainOperation();
 
-            ResponseData response = GetWebServiceData(urlTestWebService).Result;
+        }
+
+        public static void DoMainOperation()
+        {
+            ResponseData response = GetResponseFromWebService();
             if (response.Success)
             {
                 //get list of persons 
@@ -26,28 +32,84 @@ namespace AGLTestConsole
             }
         }
 
+        public static ResponseData GetResponseFromWebService()
+        {
+            ResponseData response = GetWebServiceData(urlTestWebService).Result;
+            return response;
+        }
+
         public static void GetAnimalsByGenderOfOwner(List<Persons> persons, string animal)
         {
             string genderFemale = "Female";
             string genderMale = "Male";
+
             //categorize into two lists- one for females, one for males
-            List<string> femaleCats = GetAnimalNamesByGender(genderFemale, animal, persons);
             List<string> maleCats = GetAnimalNamesByGender(genderMale, animal, persons);
+            PrintAnimalsByGenderOfOwner(maleCats, genderMale);
+
+            List<string> femaleCats = GetAnimalNamesByGender(genderFemale, animal, persons);
+            PrintAnimalsByGenderOfOwner(femaleCats, genderFemale);
+
+            PrintExit(strExitMsg);
+        
         }
 
         public static void PrintAnimalsByGenderOfOwner(List<string> animalNames ,string header)
         {
-            Console.WriteLine(header);
+            try
+            {
+                Console.WriteLine(header + "\n");
+
+                foreach (string curName in animalNames)
+                {
+                    Console.WriteLine(curName);
+                }
+
+                Console.WriteLine("\n\n");
+            }
+
+            catch (Exception ex)
+            {
+
+            }
+
+
+        }
+
+        public static void PrintExit(string exitmessage)
+        {
+
+            try
+            {
+                Console.WriteLine("Press any key to exit...");
+                Console.Read();
+            }
+
+            catch(Exception ex)
+            {
+
+            }
         }
 
         private static List<string> GetAnimalNamesByGender(string gender,string type, List<Persons> persons)
         {
-           return persons.Where(p => p.Gender.ToLower().Equals(gender) && p.Pets != null)
-                                       .SelectMany(x => x.Pets)
-                                       .Where(y => y.Type.ToLower().Equals(type) && y.Type !=null)
-                                       .OrderBy(t => t.Name)
-                                       .Select(z => z.Name)
-                                       .ToList();
+            List<string> animalNames = new List<string>();
+            try
+            {
+                animalNames= persons.Where(p => p.Gender != null && p.Name != null && p.Gender.ToLower().Equals(gender.ToLower()) && p.Pets != null)
+                                            .SelectMany(x => x.Pets)
+                                            .Where(y => y.Type != null && y.Name != null && y.Type.ToLower().Equals(type.ToLower()))
+                                            .OrderBy(t => t.Name)
+                                            .Select(z => z.Name)
+                                            .ToList();
+            }
+
+            catch(Exception ex)
+            {
+
+            }
+
+            return animalNames;
         }
 
         private static  async Task<ResponseData> GetWebServiceData(string url)
@@ -129,6 +191,11 @@ namespace AGLTestConsole
                 pets = value;
             }
         }
+
+        public Persons()
+        {
+            Pets = new List<Pets>();
+        }
     }
 
     public class Pets
@@ -164,6 +231,9 @@ namespace AGLTestConsole
             Name = name;
             Type = type;
         }
+
+        public Pets()
+        { }
     }
 
     public class ResponseData
